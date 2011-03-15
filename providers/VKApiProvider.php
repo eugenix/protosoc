@@ -1,35 +1,22 @@
 <?php
 class VKApiProvider extends BaseApiProvider
 {
-	private $apiUrl = 'http://api.vkontakte.ru/api.php';
+	protected $apiUrl = 'http://api.vkontakte.ru/api.php';
 	
-	function __construct($apiId, $secretToken, $login, $pass)
+	protected $requiredPermission = 8192;
+	
+	protected $sessionPrefix = 'authDataVk';
+	
+	function __construct($appId, $secretToken, $login, $pass)
 	{
-		$this->requester = new HTTP_Request2();
-		$this->requester->setConfig(array(
-			'adapter' => new HTTP_Request2_Adapter_Curl(),
-			'timeout' => 30,
-			'connect_timeout' => 30
-		));
-		
-		$this->apiId = $apiId;
-		$this->secretToken = $secretToken;
-		
-		/*
-		 * чтобы каждый раз не авторизовываться сохраняем сессию		 
-		 */
-		$skey = 'authDataVk' . $login . $pass;		
-		if (!isset($_SESSION[$skey])) 
-		{
-			$_SESSION[$skey] = $this->auth($login, $pass);			
-			echo "Session upadated"; 
-		}
-		$this->sessionData = $_SESSION[$skey];
+		parent::__construct($appId, $secretToken);
+						
+		$this->provideSessionData($login, $pass);
 	}
 	
 	public function auth($login, $pass)
 	{		
-		$this->requester->setUrl('http://vkontakte.ru/login.php?app='.$this->apiId.'&layout=popup&type=browser&settings=8192');
+		$this->requester->setUrl('http://vkontakte.ru/login.php?app='.$this->appId.'&layout=popup&type=browser&settings='.$this->requiredPermission);
 		$this->requester->setMethod(HTTP_Request2::METHOD_GET);
 		$response = $this->requester->send();
 		
@@ -64,6 +51,17 @@ class VKApiProvider extends BaseApiProvider
 		//print_r($res);
 		
 		return array('sid' => $res['sid'], 'mid' => $res['mid'], 'secret' => $res['secret']);
+	}		
+	
+	private function checkPermissions()
+	{
+		return ($this->requiredPermission <= $this->getPermissions());
+	}
+	
+	private function getPermissions()
+	{
+		$settings = $this->callApi('getUserSettings');
+		return $settings['response'];
 	}
 	
 	private function callApi($method, $params = false)
@@ -71,7 +69,7 @@ class VKApiProvider extends BaseApiProvider
 		if (!$params) 
 			$params = array();
 		 
-		$params['api_id'] = $this->apiId;
+		$params['api_id'] = $this->appId;
 		$params['v'] = '3.0';
 		$params['method'] = $method;		
 		$params['format'] = 'json';

@@ -1,13 +1,4 @@
 <?php
-$configs = array(
-	'VK' => array(
-		'APP_ID' 		=> 2215721,
-		'PRIVATE_KEY' 	=> 'PNklLefcCI8t9DfMOVPI',
-		'LOGIN' 		=> 'vivareal@list.ru',
-		'PASS' 			=> 'valenly',
-	)
-);
-
 class ApiProviderFactory
 {
 	const VKOTAKTE = "vk";
@@ -24,7 +15,12 @@ class ApiProviderFactory
 		switch ($alias) 
 		{
 			case self::VKOTAKTE:
-				return new VKApiProvider(2215721, 'PNklLefcCI8t9DfMOVPI', 'vivareal@list.ru', 'valenly');
+				return new VKApiProvider(
+						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'appId'),
+						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'privateKey'),
+						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'login'),
+						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'pass')
+					);
 			break;
 			case self::FACEBOOK:
 				return new FacebookApiProvider();
@@ -33,7 +29,13 @@ class ApiProviderFactory
 				return new MailRuApiProvider();
 			break;	
 			case self::ODNOCLASSNIKI:
-				return new OdklApiProvider();
+				return new OdklApiProvider(
+						APIConfigurator::getInstance()->get(self::ODNOCLASSNIKI, 'appId'),
+						APIConfigurator::getInstance()->get(self::ODNOCLASSNIKI, 'publicKey'),
+						APIConfigurator::getInstance()->get(self::ODNOCLASSNIKI, 'privateKey'),
+						APIConfigurator::getInstance()->get(self::ODNOCLASSNIKI, 'login'),
+						APIConfigurator::getInstance()->get(self::ODNOCLASSNIKI, 'pass')
+					);
 			break;
 			case self::TWITTER:
 				return new TwitterApiProvider();
