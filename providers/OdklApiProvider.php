@@ -47,7 +47,8 @@ class OdklApiProvider extends BaseApiProvider
 	
 	public function postStream($message) 
 	{
-		return $this->callApi('');
+		return $this->callApi('stream.publish', 
+			array('message' => $message, 'session_key' => $this->sessionData['session_key']));
 	}
 	
 	private function callApi($method, $params = false)
