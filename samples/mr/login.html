@@ -1,0 +1,94 @@
+   1.
+      <html>
+   2.
+       <head>
+   3.
+        // этот небольшой скрипт создает минимальное окружение для библиотеки,
+   4.
+        // но не загружает ее саму
+   5.
+        <script type="text/javascript" src="http://cdn.connect.mail.ru/js/loader.js">
+   6.
+        </script>
+   7.
+       </head>
+   8.
+       <body>
+   9.
+        <script type="text/javascript">
+  10.
+         //<![CDATA[
+  11.
+          // этот вызов обязателен, он осуществляет непосредственную загрузку
+  12.
+          // кода библиотеки; рекомендуем всю работу с API вести внутри callback'а
+  13.
+          mailru.loader.require('api', function() {
+  14.
+           // инициализируем внутренние переменные
+  15.
+           // не забудьте поменять на ваши значения app_id и private_key
+  16.
+           mailru.connect.init(602526, 'd1cd5a2a08cddd534fb2b5d13edcc1b9');
+  17.
+           // регистрируем обработчики событий,
+  18.
+           // которые будут вызываться при логине и логауте
+  19.
+           mailru.events.listen(mailru.connect.events.login, function(session){
+  20.
+            window.location.reload();
+  21.
+           });
+  22.
+           mailru.events.listen(mailru.connect.events.logout, function(){
+  23.
+            window.location.reload();
+  24.
+           });
+  25.
+           // проверка статуса логина, в result callback'a приходит
+  26.
+           // вся информация о сессии (см. следующий раздел)
+  27.
+           mailru.connect.getLoginStatus(function(result) {
+  28.
+            if (result.is_app_user != 1) {
+  29.
+             // пользователь не залогинен, надо показать ему кнопку логина
+  30.
+       
+  31.
+             // вешаем кнопку логина (пример для jquery)
+  32.
+             $('<a class="mrc__connectButton">вход@mail.ru</a>').appendTo('body');
+  33.
+             // эта функция превращает только что вставленный элемент в
+  34.
+             // стандартную кнопку Mail.Ru
+  35.
+             mailru.connect.initButton();
+  36.
+            } else {
+  37.
+             // все ок, можно работать
+  38.
+       
+  39.
+             // получаем полную информацию о текущем пользователе
+  40.
+             mailru.common.users.getInfo(function(result){console.log(result[0].uid)});
+  41.
+            }
+  42.
+           });
+  43.
+          });
+  44.
+         //]]>
+  45.
+        </script>
+  46.
+       </body>
+  47.
+      </html>

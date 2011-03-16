@@ -53,7 +53,7 @@ abstract class BaseApiProvider implements IAPIProvider
 		}
 		$this->sessionData = self::getSessionKey($skey);
 	}
-	
+			
 	protected function buildParamsStr($params)
 	{
 		$str = '';

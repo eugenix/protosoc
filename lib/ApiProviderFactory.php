@@ -23,10 +23,16 @@ class ApiProviderFactory
 					);
 			break;
 			case self::FACEBOOK:
-				return new FacebookApiProvider();
+				return new FacebookApiProvider(
+					);
 			break;
 			case self::MAILRU:
-				return new MailRuApiProvider();
+				return new MailRuApiProvider(
+						APIConfigurator::getInstance()->get(self::MAILRU, 'appId'),
+						APIConfigurator::getInstance()->get(self::MAILRU, 'secretKey'),
+						APIConfigurator::getInstance()->get(self::MAILRU, 'login'),
+						APIConfigurator::getInstance()->get(self::MAILRU, 'pass')
+					);
 			break;	
 			case self::ODNOCLASSNIKI:
 				return new OdklApiProvider(
@@ -38,10 +44,12 @@ class ApiProviderFactory
 					);
 			break;
 			case self::TWITTER:
-				return new TwitterApiProvider();
+				return new TwitterApiProvider(
+					);
 			break;
 			case self::LIVEJOURNAL:
-				return new LiveJournalApiProvider();
+				return new LiveJournalApiProvider(
+					);
 			break;
 			default:
 				throw new APIException();

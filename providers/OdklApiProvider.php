@@ -6,6 +6,8 @@ class OdklApiProvider extends BaseApiProvider
 	
 	protected $apiUrl = 'http://api-sandbox.odnoklassniki.ru:8088/api/fb.do';
 	
+	protected $sessionPrefix = 'authDataOdkl';
+	
 	function __construct($appId, $appKey, $secretToken, $login, $pass)
 	{						
 		parent::__construct($appId, $secretToken);

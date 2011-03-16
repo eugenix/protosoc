@@ -15,12 +15,14 @@ require_once 'providers/IAPIProvider.php';
 require_once 'providers/BaseApiProvider.php';
 require_once 'providers/VKApiProvider.php';
 require_once 'providers/OdklApiProvider.php';
+require_once 'providers/MailRuApiProvider.php';
 
 /*
 require_once 'providers/LiveJournalApiProvider.php';
 require_once 'providers/FacebookApiProvider.php';
 require_once 'providers/TwitterApiProvider.php';
-require_once 'providers/MailRuApiProvider.php';
 */
+
+
 
 APIConfigurator::getInstance()->init('config.ini');
