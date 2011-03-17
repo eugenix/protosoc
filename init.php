@@ -13,8 +13,8 @@ require_once 'lib/ApiProviderFactory.php';
 
 require_once 'providers/IAPIProvider.php';
 require_once 'providers/BaseApiProvider.php';
-require_once 'providers/VKApiProvider.php';
-require_once 'providers/OdklApiProvider.php';
+require_once 'providers/VkontakteApiProvider.php';
+require_once 'providers/OdnoclassnikiApiProvider.php';
 require_once 'providers/MailRuApiProvider.php';
 
 /*

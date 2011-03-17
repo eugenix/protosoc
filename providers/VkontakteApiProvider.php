@@ -1,5 +1,5 @@
 <?php
-class VKApiProvider extends BaseApiProvider
+class VkontakteApiProvider extends BaseApiProvider
 {
 	protected $apiUrl = 'http://api.vkontakte.ru/api.php';
 	

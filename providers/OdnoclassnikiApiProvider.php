@@ -1,5 +1,5 @@
 <?php
-class OdklApiProvider extends BaseApiProvider
+class OdnoclassnikiApiProvider extends BaseApiProvider
 {
 	//waiting for response from administration
 	protected $appKey = null;

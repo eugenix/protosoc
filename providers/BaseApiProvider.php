@@ -47,7 +47,7 @@ abstract class BaseApiProvider implements IAPIProvider
 		$skey = $this->sessionPrefix . $login . $pass;		
 		if (!$this->hasSessionKey($skey)) 
 		{
-			$skeyVal = $this->auth($login, $pass);
+			$skeyVal = $this->auth($login, $pass);			
 			self::storeSessionKey($skey, $skeyVal);			
 			echo "Session upadated: ". print_r($skeyVal, true); 
 		}
@@ -77,5 +77,12 @@ abstract class BaseApiProvider implements IAPIProvider
 	protected function hasSessionKey($skey)
 	{
 		return isset($_SESSION[$skey]);
+	}
+	
+	protected static function dump($var)
+	{
+		echo "<pre>";
+		var_dump($var);
+		echo "</pre>";
 	}
 }
