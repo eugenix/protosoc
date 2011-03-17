@@ -9,7 +9,7 @@ require_once 'Config/Lite.php';
 require_once 'lib/APIConfigurator.php';
 require_once 'lib/APIException.php';
 require_once 'lib/APIHandler.php';
-require_once 'lib/ApiProviderFactory.php';
+require_once 'lib/APIProviderFactory.php';
 
 require_once 'providers/IAPIProvider.php';
 require_once 'providers/BaseApiProvider.php';

@@ -1,12 +1,12 @@
 <?php
-class ApiProviderFactory
+class APIProviderFactory
 {
-	const VKOTAKTE = "vk";
-	const ODNOCLASSNIKI = "odkl";
-	const FACEBOOK = "fb";
-	const MAILRU = "mr";
-	const TWITTER = "tw";
-	const LIVEJOURNAL = "lj";
+	const VKONTAKTE 	= "vkontakte";
+	const ODNOCLASSNIKI = "odnoclassniki";
+	const FACEBOOK 		= "facebook";
+	const MAILRU 		= "mailru";
+	const TWITTER 		= "twitter";
+	const LIVEJOURNAL 	= "livejournal";
 	
 	private function __construct() {}
 	
@@ -14,12 +14,12 @@ class ApiProviderFactory
 	{
 		switch ($alias) 
 		{
-			case self::VKOTAKTE:
+			case self::VKONTAKTE:
 				return new VKApiProvider(
-						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'appId'),
-						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'privateKey'),
-						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'login'),
-						APIConfigurator::getInstance()->get(self::VKOTAKTE, 'pass')
+						APIConfigurator::getInstance()->get(self::VKONTAKTE, 'appId'),
+						APIConfigurator::getInstance()->get(self::VKONTAKTE, 'privateKey'),
+						APIConfigurator::getInstance()->get(self::VKONTAKTE, 'login'),
+						APIConfigurator::getInstance()->get(self::VKONTAKTE, 'pass')
 					);
 			break;
 			case self::FACEBOOK:
@@ -44,12 +44,10 @@ class ApiProviderFactory
 					);
 			break;
 			case self::TWITTER:
-				return new TwitterApiProvider(
-					);
+				return new TwitterApiProvider();
 			break;
 			case self::LIVEJOURNAL:
-				return new LiveJournalApiProvider(
-					);
+				return new LiveJournalApiProvider();
 			break;
 			default:
 				throw new APIException();
