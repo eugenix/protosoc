@@ -1,15 +1,13 @@
 <?php
 class VkontakteApiProvider extends BaseApiProvider
-{
-	protected $apiUrl = 'http://api.vkontakte.ru/api.php';
-	
+{		
 	protected $requiredPermission = 8192;
 	
 	protected $sessionPrefix = 'authDataVk';
 	
-	function __construct($appId, $secretToken, $login, $pass)
+	function __construct($appId, $apiUrl, $secretToken, $login, $pass)
 	{
-		parent::__construct($appId, $secretToken);
+		parent::__construct($appId, $apiUrl, $secretToken);
 						
 		$this->provideSessionData($login, $pass);
 	}

@@ -1,5 +1,5 @@
 <?php
-class LiveJournalApiProvider extends BaseApiProvider
+class LivejournalApiProvider extends BaseApiProvider
 {
 	public function getFriends(){}
 	

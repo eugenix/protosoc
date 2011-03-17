@@ -1,13 +1,11 @@
 <?php
 class MailRuApiProvider extends BaseApiProvider
-{
-	protected $apiUrl = 'http://www.appsmail.ru/platform/api';	
-	
+{			
 	protected $sessionPrefix = 'authDataMR';
 	
-	function __construct($appId, $secretToken, $login, $pass)
+	function __construct($appId, $apiUrl, $secretToken, $login, $pass)
 	{
-		parent::__construct($appId, $secretToken);
+		parent::__construct($appId, $apiUrl, $secretToken);
 						
 		$this->provideSessionData($login, $pass);
 	}

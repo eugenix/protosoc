@@ -8,11 +8,11 @@ $invoke = $_GET['invoke'];
 
 try 
 {
-	list($providerAlias, $methodName) = explode('.', $invoke); 
+	list($providerName, $methodName) = explode('.', $invoke); 
 
 	$handler = APIHandler::getInstance();	
 	
-	$res = $handler->executeMethod($providerAlias, $methodName, APIHandler::getFixedParams($_GET));	
+	$res = $handler->executeMethod($providerName, $methodName, APIHandler::getFixedParams($_GET));	
 	
 	APIHandler::sendResponse($res);	
 } 

@@ -33,9 +33,10 @@ class APIHandler
 	
 	public function init() {}
 		
-	public function executeMethod($providerAlias, $methodName, $params)
+	public function executeMethod($providerName, $methodName, $params)
 	{		
-		$provider = ApiProviderFactory::createProvider($providerAlias);				
+		$provider = APIProviderFactory::createProvider($providerName);		
+		
 		$refProvider = new ReflectionObject($provider);				
 		$method = $refProvider->getMethod($methodName);			
 		return $method->invokeArgs($provider, $params);

@@ -8,7 +8,7 @@ abstract class BaseApiProvider implements IAPIProvider
 {
 	/**
 	 * Id приложения в системе
-	 * @var string
+	 * @var int
 	 */
 	protected $appId = null;
 	
@@ -26,7 +26,7 @@ abstract class BaseApiProvider implements IAPIProvider
 	
 	protected $requester = null;
 	
-	function __construct($appId, $secretToken) 
+	function __construct($appId, $apiUrl, $secretToken) 
 	{
 		$this->requester = new HTTP_Request2();
 		$this->requester->setConfig(array(
@@ -36,7 +36,8 @@ abstract class BaseApiProvider implements IAPIProvider
 		));
 		
 		$this->appId = $appId;
-		$this->secretToken = $secretToken;
+		$this->apiUrl = $apiUrl;
+		$this->secretToken = $secretToken;		
 	}
 	
 	/*
