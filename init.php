@@ -26,3 +26,4 @@ require_once 'providers/TwitterApiProvider.php';
 
 
 APIConfigurator::getInstance()->init('config.ini');
+

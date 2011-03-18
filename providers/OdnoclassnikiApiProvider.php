@@ -65,7 +65,7 @@ class OdnoclassnikiApiProvider extends BaseApiProvider
 				
 		/*
 		 * если запрос требует авторизации, то подписываем секретным ключом сессии
-		 * иначе секретным ключом приложения
+		 * иначе секретным ключом приложения ваываыв
 		 */
 		if (isset($params['session_key'])) 
 			$sig .= $this->sessionData['session_secret_key'];				

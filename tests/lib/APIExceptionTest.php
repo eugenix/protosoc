@@ -1,0 +1,61 @@
+<?php
+
+require_once 'lib/APIException.php';
+
+require_once 'PHPUnit/Framework/TestCase.php';
+
+/**
+ * APIException test case.
+ */
+class APIExceptionTest extends PHPUnit_Framework_TestCase {
+	
+	/**
+	 * @var APIException
+	 */
+	private $APIException;
+	
+	/**
+	 * Prepares the environment before running a test.
+	 */
+	protected function setUp() {
+		parent::setUp ();
+		
+		// TODO Auto-generated APIExceptionTest::setUp()
+		
+
+		$this->APIException = new APIException(/* parameters */);
+	
+	}
+	
+	/**
+	 * Cleans up the environment after running a test.
+	 */
+	protected function tearDown() {
+		// TODO Auto-generated APIExceptionTest::tearDown()
+		
+
+		$this->APIException = null;
+		
+		parent::tearDown ();
+	}
+	
+	/**
+	 * Constructs the test case.
+	 */
+	public function __construct() {
+		// TODO Auto-generated constructor
+	}
+	
+	/**
+	 * Tests APIException->__construct()
+	 */
+	public function test__construct() {
+		// TODO Auto-generated APIExceptionTest->test__construct()
+		$this->markTestIncomplete ( "__construct test not implemented" );
+		
+		$this->APIException->__construct(/* parameters */);
+	
+	}
+
+}
+

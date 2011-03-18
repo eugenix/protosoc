@@ -1,5 +1,5 @@
-#Mon Mar 14 16:55:16 SAMT 2011
+#Fri Mar 18 18:36:56 SAMT 2011
 eclipse.preferences.version=1
-include_path=0;/social\u00051;/usr/share/php
+include_path=0;/social\u00055;com.zend.php.phpunit.CONTAINER\u00055;org.eclipse.dltk.USER_LIBRARY/PEAR
 phpVersion=php5
 use_asp_tags_as_php=false
