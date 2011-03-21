@@ -19,12 +19,6 @@ class APIExceptionTest extends PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 		parent::setUp ();
-		
-		// TODO Auto-generated APIExceptionTest::setUp()
-		
-
-		$this->APIException = new APIException(/* parameters */);
-	
 	}
 	
 	/**
@@ -49,12 +43,11 @@ class APIExceptionTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Tests APIException->__construct()
 	 */
-	public function test__construct() {
-		// TODO Auto-generated APIExceptionTest->test__construct()
-		$this->markTestIncomplete ( "__construct test not implemented" );
-		
-		$this->APIException->__construct(/* parameters */);
+	public function test__construct() {		
+		$this->APIException = new APIException(0, "Description");
 	
+		$this->assertEquals($this->APIException->getCode(), 0);
+		$this->assertEquals($this->APIException->getMessage(), "Description");
 	}
 
 }

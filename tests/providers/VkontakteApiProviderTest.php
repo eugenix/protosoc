@@ -1,5 +1,7 @@
 <?php
 
+require_once 'init.php';
+
 require_once 'providers/VkontakteApiProvider.php';
 
 require_once 'PHPUnit/Framework/TestCase.php';
@@ -20,11 +22,7 @@ class VkontakteApiProviderTest extends PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp ();
 		
-		// TODO Auto-generated VkontakteApiProviderTest::setUp()
-		
-
-		$this->VkontakteApiProvider = new VkontakteApiProvider(/* parameters */);
-	
+		$this->VkontakteApiProvider = new VkontakteApiProvider();	
 	}
 	
 	/**

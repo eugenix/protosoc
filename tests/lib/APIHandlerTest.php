@@ -1,6 +1,8 @@
 <?php
 
-require_once 'lib/APIHandler.php';
+require_once 'init.php';
+require_once dirname(__FILE__).'/../data/TestApiProvider.php';
+
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
@@ -13,28 +15,23 @@ class APIHandlerTest extends PHPUnit_Framework_TestCase {
 	 * @var APIHandler
 	 */
 	private $APIHandler;
+	private $testParams;
 	
 	/**
 	 * Prepares the environment before running a test.
 	 */
 	protected function setUp() {
-		parent::setUp ();
+		parent::setUp ();	
 		
-		// TODO Auto-generated APIHandlerTest::setUp()
-		
-
-		$this->APIHandler = new APIHandler(/* parameters */);
-	
+		$this->testParams = array('invoke' => 'method', 'param1' => 'value1');
+		APIConfigurator::getInstance()->init(dirname(__FILE__).'/../data/config.ini');	
 	}
 	
 	/**
 	 * Cleans up the environment after running a test.
 	 */
 	protected function tearDown() {
-		// TODO Auto-generated APIHandlerTest::tearDown()
-		
-
-		$this->APIHandler = null;
+		$this->APIConfigurator = null;
 		
 		parent::tearDown ();
 	}
@@ -42,73 +39,67 @@ class APIHandlerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Constructs the test case.
 	 */
-	public function __construct() {
-		// TODO Auto-generated constructor
+	public function __construct() {		
+	}
+	
+	public function test__construct() {
+		$ref = new ReflectionClass('APIHandler');
+		$refConstr = $ref->getConstructor();		
+		$this->assertTrue($refConstr->isPrivate(), 'Конструктор должен быть приватный');		
 	}
 	
 	/**
-	 * Tests APIHandler->__clone()
+	 * Tests APIConfigurator->__clone()
 	 */
 	public function test__clone() {
-		// TODO Auto-generated APIHandlerTest->test__clone()
-		$this->markTestIncomplete ( "__clone test not implemented" );
-		
-		$this->APIHandler->__clone(/* parameters */);
-	
+		try {
+			clone APIHandler::getInstance();
+			$this->assertTrue(false, 'Клонирование запрещено');			
+		} catch (Exception $e) {
+			$this->assertTrue(true, 'Клонирование запрещено');
+		}		
 	}
 	
 	/**
-	 * Tests APIHandler::getInstance()
+	 * Tests APIConfigurator::getInstance()
 	 */
-	public function testGetInstance() {
-		// TODO Auto-generated APIHandlerTest::testGetInstance()
-		$this->markTestIncomplete ( "getInstance test not implemented" );
-		
-		APIHandler::getInstance(/* parameters */);
-	
+	public function testGetInstance() {				
+		$this->assertNotNull(APIHandler::getInstance());
+		$this->assertTrue(APIHandler::getInstance() instanceof APIHandler);
 	}
-	
-	/**
-	 * Tests APIHandler->init()
-	 */
-	public function testInit() {
-		// TODO Auto-generated APIHandlerTest->testInit()
-		$this->markTestIncomplete ( "init test not implemented" );
 		
-		$this->APIHandler->init(/* parameters */);
-	
-	}
-	
 	/**
 	 * Tests APIHandler->executeMethod()
 	 */
 	public function testExecuteMethod() {
-		// TODO Auto-generated APIHandlerTest->testExecuteMethod()
-		$this->markTestIncomplete ( "executeMethod test not implemented" );
-		
-		$this->APIHandler->executeMethod(/* parameters */);
+		$result = APIHandler::getInstance()->executeMethod('Test', 'getFriendsFeed', $this->testParams);
+		$this->assertEquals(array(1, 12, 33, 48, 500), $result);
 	
 	}
 	
 	/**
 	 * Tests APIHandler::getFixedParams()
 	 */
-	public function testGetFixedParams() {
-		// TODO Auto-generated APIHandlerTest::testGetFixedParams()
-		$this->markTestIncomplete ( "getFixedParams test not implemented" );
+	public function testGetFixedParams() {				
+		$testFixedParams = APIHandler::getFixedParams($this->testParams);
 		
-		APIHandler::getFixedParams(/* parameters */);
+		$this->assertEquals(count($testFixedParams), 1);
+		$this->assertEquals(isset($testFixedParams['invoke']), false);
 	
 	}
 	
 	/**
 	 * Tests APIHandler::sendResponse()
 	 */
-	public function testSendResponse() {
-		// TODO Auto-generated APIHandlerTest::testSendResponse()
-		$this->markTestIncomplete ( "sendResponse test not implemented" );
+	public function testSendResponse() {		
+		ob_start();
 		
-		APIHandler::sendResponse(/* parameters */);
+		APIHandler::sendResponse("This is result");
+		
+		$out = ob_get_clean();
+		
+		//TODO: eugene: сделать проверку на формат возвращаемых значений
+		$this->assertGreaterThan(0, strlen($out));
 	
 	}
 	
@@ -116,10 +107,14 @@ class APIHandlerTest extends PHPUnit_Framework_TestCase {
 	 * Tests APIHandler::sendError()
 	 */
 	public function testSendError() {
-		// TODO Auto-generated APIHandlerTest::testSendError()
-		$this->markTestIncomplete ( "sendError test not implemented" );
+		ob_start();
 		
-		APIHandler::sendError(/* parameters */);
+		APIHandler::sendError(100, "This is error");
+		
+		$out = ob_get_clean();
+		
+		//TODO: eugene: сделать проверку на формат возвращаемых значений
+		$this->assertGreaterThan(0, strlen($out));
 	
 	}
 

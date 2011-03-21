@@ -30,7 +30,7 @@ class VkontakteApiProvider extends BaseApiProvider
 			"email" => $login, 
 			"pass" => $pass,
 			"expire" => 0,
-			"permanent" => 1	
+			"permanent" => 1	//если 1 то ключ сессии не меняется
 		));
 		$response = $this->requester->send();
 		

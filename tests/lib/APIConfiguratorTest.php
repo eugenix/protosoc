@@ -32,11 +32,13 @@ class APIConfiguratorTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Constructs the test case.
 	 */
-	public function __construct() {
-		
+	public function __construct() {				
+	}
+	
+	public function test__construct() {
 		$ref = new ReflectionClass('APIConfigurator');
 		$refConstr = $ref->getConstructor();		
-		$this->assertTrue($refConstr->isPrivate(), 'Конструктор должен быть приватный');		
+		$this->assertTrue($refConstr->isPrivate(), 'Конструктор должен быть приватный');				
 	}
 	
 	/**
@@ -74,8 +76,8 @@ class APIConfiguratorTest extends PHPUnit_Framework_TestCase {
 	public function testGet() {			
 		$this->assertEquals(file_exists(dirname(__FILE__).'/../data/config.ini'), true);
 		APIConfigurator::getInstance()->init(dirname(__FILE__).'/../data/config.ini');	
-		$this->assertEquals(APIConfigurator::getInstance()->get('odnoclassniki', 'appId'), '37632');	
-		$this->assertEquals(APIConfigurator::getInstance()->get('odnoclassniki', 'publicKey'), 'CBAEJBABABABABABA');
+		$this->assertEquals(APIConfigurator::getInstance()->get('test', 'appId'), '37632');	
+		$this->assertEquals(APIConfigurator::getInstance()->get('test', 'publicKey'), 'CBAEJBABABABABABA');
 	
 	}
 
