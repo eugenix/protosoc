@@ -1,4 +1,17 @@
 <?php
+/**
+ * TODO: eugene: Добавить здесь комментарий
+ *
+ * PHP version 5.3
+ *
+ * @category PHP
+ * @package  WebService
+ * @author   Eugene Kurbatov <eugene.kurbatov@gmail.com>
+ * @license  license GPL
+ * @version  SVN: $Id: MailRuApiProvider.php 21.03.2011 16:26:27 evkur $
+ * @link     nolink
+ */
+ 
 class MailRuApiProvider extends BaseApiProvider
 {			
 	protected $sessionPrefix = 'authDataMR';
@@ -100,7 +113,7 @@ class MailRuApiProvider extends BaseApiProvider
 		return json_decode($response->getBody(), true);
 	}
 	
-	public function postStream($message) 
+	public function publish($message) 
 	{
 		return $this->callApi('stream.post', array('user_text' => $message));
 	}

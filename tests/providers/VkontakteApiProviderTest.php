@@ -95,7 +95,7 @@ class VkontakteApiProviderTest extends PHPUnit_Framework_TestCase {
 		// TODO Auto-generated VkontakteApiProviderTest->testPostStream()
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->VkontakteApiProvider->postStream(/* parameters */);
+		$this->VkontakteApiProvider->publish(/* parameters */);
 	
 	}
 	

@@ -16,13 +16,32 @@ require_once 'models/BaseEntity.php';
 
 class MessageEntity extends BaseEntity 
 {
-	//TODO - Insert your code here
+	private $text = null;
 	
-
-	function __construct() 
+	function __construct($text) 
 	{	
-		//TODO - Insert your code here
+		$this->text = $text;	
 	}
+	
+	/**
+	 * Возвращает текст сообщения 
+	 *
+	 * @return $text
+	 */
+	public function getText() {
+		return $this->text;
+	}
+
+	/**
+	 * Устанавливает текст сообщения
+	 *
+	 * @param field_type $text
+	 *
+	 * @return void
+	 */
+	public function setText($text) {
+		$this->text = $text;
+	}	
 }
 
 ?>

@@ -1,4 +1,17 @@
 <?php
+/**
+ * Провайдер для API Вконтакте
+ *
+ * PHP version 5.3
+ *
+ * @category PHP
+ * @package  WebService
+ * @author   Eugene Kurbatov <eugene.kurbatov@gmail.com>
+ * @license  license GPL
+ * @version  SVN: $Id: VkontakteApiProvider.php 21.03.2011 16:26:59 evkur $
+ * @link     nolink
+ */
+ 
 class VkontakteApiProvider extends BaseApiProvider
 {		
 	protected $requiredPermission = 8192;
@@ -50,6 +63,73 @@ class VkontakteApiProvider extends BaseApiProvider
 		
 		return array('sid' => $res['sid'], 'mid' => $res['mid'], 'secret' => $res['secret']);
 	}		
+		
+	/**	 
+	 * @todo Возможно сделать через execute(), для ускорения работы
+	 */
+	public function getOnlineFriends()
+	{		
+		$friends = array();
+		
+		$results = $this->callApi('friends.get', array('fields' => 'first_name, last_name, bdate')); 
+		
+		foreach ($results['response'] as $result)
+		{
+			if ($result['online'] == 1)
+			{
+				$bdate = isset($result['bdate']) ? $result['bdate'] : null;
+				$friends[] = new PersonEntity($result['uid'], $result['first_name'], $result['last_name'], $bdate);
+			}
+		}		
+		return $friends;
+	}
+	
+	public function getFriends()
+	{
+		$friends = array();
+		
+		$results = $this->callApi('friends.get', array('fields' => 
+			'uid, first_name, last_name, nickname, sex, bdate, city, country, timezone, 
+			photo, photo_medium, photo_big, domain, has_mobile, rate, contacts, education'));
+	
+		foreach ($results['response'] as $result)
+		{
+			$bdate = isset($result['bdate']) ? $result['bdate'] : null;
+			$friends[] = new PersonEntity($result['uid'], $result['first_name'], $result['last_name'], $bdate); 
+		}
+		
+		return $friends;
+	}
+	
+	public function publish($messageText)
+	{	
+		$activity = new ActivityEntity(ActivityEntity::POST, null, $messageText, null, null);
+		
+		$result = $this->callApi('wall.post', array('message' => $activity->getText()));
+		
+		$activity->setId($result['response']['post_id']);
+		
+		return $activity;
+	}
+	
+	public function getFriendsFeed()
+	{
+		$activities = array();
+		$results = $this->callApi('newsfeed.get', array('filters' => 'post'));
+		
+		foreach ($results['response']['items'] as $result)
+		{
+			$title = null;
+			$text = $result['text'];
+			$date = date('Y-m-d H:m:s', $result['date']);
+			$authorId = $result['source_id'];
+			$activity = new ActivityEntity(ActivityEntity::POST, $title, $text, $date, $authorId);
+			$activity->setId($result['post_id']);
+			$activities[] = $activity; 			 
+		}
+		
+		return $activities;
+	}	
 	
 	private function checkPermissions()
 	{
@@ -85,26 +165,4 @@ class VkontakteApiProvider extends BaseApiProvider
 		$response = $this->requester->send();
 		return json_decode($response->getBody(), true);
 	}
-	
-	public function getOnlineFriends()
-	{		
-		return $this->callApi('friends.getOnline');	
-	}
-	
-	public function getFriends()
-	{
-		return $this->callApi('friends.get', array('fields' => 
-			'uid, first_name, last_name, nickname, sex, bdate, city, country,
-			 timezone, photo, photo_medium, photo_big, domain, has_mobile, rate, contacts, education'));
-	}
-	
-	public function postStream($message)
-	{	
-		return $this->callApi('wall.post', array('message' => $message));
-	}
-	
-	public function getFriendsFeed()
-	{
-		return $this->callApi('newsfeed.get', array('filters' => 'post, photo, note'));
-	}	
 }

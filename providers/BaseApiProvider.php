@@ -1,31 +1,71 @@
 <?php
 /**
  * Базовый класс провайдера
- * @author eugene
  *
+ * PHP version 5.3
+ *
+ * @category PHP
+ * @package  WebService
+ * @author   Eugene Kurbatov <eugene.kurbatov@gmail.com>
+ * @license  license GPL
+ * @version  SVN: $Id: BaseApiProvider.php 21.03.2011 16:10:17 evkur $
+ * @link     nolink
  */
+ 
 abstract class BaseApiProvider implements IAPIProvider
 {
 	/**
 	 * Id приложения в системе
+	 * 
 	 * @var int
 	 */
 	protected $appId = null;
 	
 	/**
 	 * Секретный ключ приложения
+	 * 
 	 * @var string
 	 */
 	protected $secretToken = null;
 	
+	/**
+	 * Url сервиса, на который идут запросы к api 
+	 *
+	 * @var string
+	 */
 	protected $apiUrl = null;
-	
+		
+	/**
+	 * Данные сессии, которые создаются после авторизации.
+	 * Нужны для подписи запросов.
+	 *
+	 * @var string
+	 */
 	protected $sessionData = null;
 	
+	/**
+	 * Префикс ключа сессии, для каждого провайдера свой.
+	 *
+	 * @var string
+	 */
 	protected $sessionPrefix = null;
 	
+	/**
+	 * Объект, через который осуществляются http-запросы
+	 *
+	 * @var HTTP_Request2
+	 */
 	protected $requester = null;
 	
+	/**
+	 * Конструткор базового класса
+	 *
+	 * @param string $appId Id приложения
+	 * @param string $apiUrl Url сервиса, на который идут запросы к api 
+	 * @param string $secretToken Секретный ключ приложения
+	 * 
+	 * @todo Вынести в конфиги параметры соединения 
+	 */
 	function __construct($appId, $apiUrl, $secretToken) 
 	{
 		$this->requester = new HTTP_Request2();
@@ -40,8 +80,11 @@ abstract class BaseApiProvider implements IAPIProvider
 		$this->secretToken = $secretToken;		
 	}
 	
-	/*
-	 * чтобы каждый раз не авторизовываться сохраняем сессию		 
+	/**
+	 * Сохраняет данные сессии, чтобы каждый раз заново не авторизовываться
+	 *
+	 * @param string $login Логин
+	 * @param string $pass Пароль
 	 */
 	protected function provideSessionData($login, $pass)
 	{
@@ -55,6 +98,13 @@ abstract class BaseApiProvider implements IAPIProvider
 		$this->sessionData = self::getSessionKey($skey);
 	}
 			
+	/**
+	 * Собирает строку из параметров
+	 *
+	 * @param array $params
+	 * 
+	 * @return string
+	 */
 	protected function buildParamsStr($params)
 	{
 		$str = '';

@@ -1,4 +1,17 @@
 <?php
+/**
+ * TODO: eugene: Добавить здесь комментарий
+ *
+ * PHP version 5.3
+ *
+ * @category PHP
+ * @package  WebService
+ * @author   Eugene Kurbatov <eugene.kurbatov@gmail.com>
+ * @license  license GPL
+ * @version  SVN: $Id: OdnoclassnikiApiProvider.php 21.03.2011 16:26:44 evkur $
+ * @link     nolink
+ */
+ 
 class OdnoclassnikiApiProvider extends BaseApiProvider
 {
 	//waiting for response from administration
@@ -45,7 +58,7 @@ class OdnoclassnikiApiProvider extends BaseApiProvider
 			array('user_name' => $login, 'password' => $pass, 'gen_token' => true));		 		
 	}
 	
-	public function postStream($message) 
+	public function publish($message) 
 	{
 		return $this->callApi('stream.publish', 
 			array('message' => $message, 'session_key' => $this->sessionData['session_key']));

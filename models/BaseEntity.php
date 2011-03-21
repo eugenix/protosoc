@@ -21,7 +21,11 @@ abstract class BaseEntity
 	 */
 	private $id = null;
 	
-	
+	function __construct($id)
+	{
+		$this->id = $id;
+	}
+		
 	/**
 	 * Возвращает идентификатор сущности	 	 
 	 *

@@ -97,7 +97,7 @@ class FacebookApiProviderTest extends PHPUnit_Framework_TestCase {
 		// TODO Auto-generated FacebookApiProviderTest->testPostStream()
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->FacebookApiProvider->postStream(/* parameters */);
+		$this->FacebookApiProvider->publish(/* parameters */);
 	
 	}
 

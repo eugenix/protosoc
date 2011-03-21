@@ -97,7 +97,7 @@ class TwitterApiProviderTest extends PHPUnit_Framework_TestCase {
 		// TODO Auto-generated TwitterApiProviderTest->testPostStream()
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->TwitterApiProvider->postStream(/* parameters */);
+		$this->TwitterApiProvider->publish(/* parameters */);
 	
 	}
 

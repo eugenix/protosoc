@@ -108,7 +108,7 @@ class MailRuApiProviderTest extends PHPUnit_Framework_TestCase {
 		// TODO Auto-generated MailRuApiProviderTest->testPostStream()
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->MailRuApiProvider->postStream(/* parameters */);
+		$this->MailRuApiProvider->publish(/* parameters */);
 	
 	}
 

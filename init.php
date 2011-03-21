@@ -17,6 +17,12 @@ require_once 'providers/VkontakteApiProvider.php';
 require_once 'providers/OdnoclassnikiApiProvider.php';
 require_once 'providers/MailRuApiProvider.php';
 
+require_once 'models/BaseEntity.php';
+require_once 'models/PersonEntity.php';
+require_once 'models/ActivityEntity.php';
+require_once 'models/MessageEntity.php';
+require_once 'models/StatusEntity.php';
+
 /*
 require_once 'providers/LiveJournalApiProvider.php';
 require_once 'providers/FacebookApiProvider.php';

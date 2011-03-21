@@ -108,7 +108,7 @@ class OdnoclassnikiApiProviderTest extends PHPUnit_Framework_TestCase {
 		// TODO Auto-generated OdnoclassnikiApiProviderTest->testPostStream()
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->OdnoclassnikiApiProvider->postStream(/* parameters */);
+		$this->OdnoclassnikiApiProvider->publish(/* parameters */);
 	
 	}
 

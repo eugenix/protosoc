@@ -46,14 +46,15 @@ class PersonEntity extends BaseEntity
 	 *
 	 * @return void  
 	 */
-	public function __construct($name, $surname, $birthday)
+	public function __construct($id, $name, $surname, $birthday)
 	{
+		parent::__construct($id);
+				
 		$this->name = $name;
 		$this->surname = $surname;
 		$this->birthday = $birthday;
 	}
-	
-	
+		
 	/**
 	 * Возвращает имя персоны
 	 *

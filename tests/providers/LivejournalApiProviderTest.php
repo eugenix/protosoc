@@ -97,7 +97,7 @@ class LivejournalApiProviderTest extends PHPUnit_Framework_TestCase {
 		// TODO Auto-generated LivejournalApiProviderTest->testPostStream()
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->LivejournalApiProvider->postStream(/* parameters */);
+		$this->LivejournalApiProvider->publish(/* parameters */);
 	
 	}
 

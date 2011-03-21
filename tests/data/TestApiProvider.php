@@ -36,5 +36,5 @@ class TestApiProvider extends BaseApiProvider
 	
 	public function auth($login, $pass){}
 	
-	public function postStream($message) {}
+	public function publish($message) {}
 }
