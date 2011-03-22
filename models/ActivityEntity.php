@@ -61,7 +61,7 @@ class ActivityEntity extends BaseEntity
 	 * @param string $text Заголовок новости
 	 * @param string $date Дата публикации новости
 	 */
-	function __construct($type, $title, $text, $date, $authorId)	 
+	function __construct($type = null, $title = null, $text = null, $date = null, $authorId = null)	 
 	{
 		$this->type = $type;
 		$this->title = $title;

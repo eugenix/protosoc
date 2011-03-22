@@ -17,21 +17,25 @@ class VkontakteApiProviderTest extends PHPUnit_Framework_TestCase {
 	private $VkontakteApiProvider;
 	
 	/**
+	 * @todo убрать реальные данные
 	 * Prepares the environment before running a test.
 	 */
 	protected function setUp() {
 		parent::setUp ();
 		
-		$this->VkontakteApiProvider = new VkontakteApiProvider();	
+		$this->VkontakteApiProvider = new VkontakteApiProvider(
+			2215721, 
+			'http://api.vkontakte.ru/api.php',
+			'PNklLefcCI8t9DfMOVPI',
+			'vivareal@list.ru',
+			'valenly');	
+		date_default_timezone_set('Europe/Moscow');			
 	}
 	
 	/**
 	 * Cleans up the environment after running a test.
 	 */
-	protected function tearDown() {
-		// TODO Auto-generated VkontakteApiProviderTest::tearDown()
-		
-
+	protected function tearDown() {	
 		$this->VkontakteApiProvider = null;
 		
 		parent::tearDown ();
@@ -43,56 +47,56 @@ class VkontakteApiProviderTest extends PHPUnit_Framework_TestCase {
 	public function __construct() {
 		// TODO Auto-generated constructor
 	}
-	
-	/**
-	 * Tests VkontakteApiProvider->__construct()
-	 */
-	public function test__construct() {
-		// TODO Auto-generated VkontakteApiProviderTest->test__construct()
-		$this->markTestIncomplete ( "__construct test not implemented" );
 		
-		$this->VkontakteApiProvider->__construct(/* parameters */);
-	
-	}
-	
 	/**
+	 * @todo убрать реальные данные
 	 * Tests VkontakteApiProvider->auth()
 	 */
 	public function testAuth() {
-		// TODO Auto-generated VkontakteApiProviderTest->testAuth()
-		$this->markTestIncomplete ( "auth test not implemented" );
+		$sessionData = $this->VkontakteApiProvider->auth('vivareal@list.ru', 'valenly');	
+		$this->assertTrue(isset($sessionData['sid']));
+		$this->assertTrue(isset($sessionData['mid']));
+		$this->assertTrue(isset($sessionData['secret']));
 		
-		$this->VkontakteApiProvider->auth(/* parameters */);
-	
 	}
 	
 	/**
 	 * Tests VkontakteApiProvider->getOnlineFriends()
 	 */
-	public function testGetOnlineFriends() {
-		// TODO Auto-generated VkontakteApiProviderTest->testGetOnlineFriends()
-		$this->markTestIncomplete ( "getOnlineFriends test not implemented" );
-		
-		$this->VkontakteApiProvider->getOnlineFriends(/* parameters */);
-	
+	public function testGetOnlineFriends() {								
+		try 
+		{
+			$res = $this->VkontakteApiProvider->getOnlineFriends();
+			$this->assertNotNull($res);
+			$this->assertTrue(is_array($res));
+		} 
+		catch (APIException $apie) 
+		{
+			$this->assertTrue(false);
+		}
+					
 	}
 	
 	/**
 	 * Tests VkontakteApiProvider->getFriends()
 	 */
-	public function testGetFriends() {
-		// TODO Auto-generated VkontakteApiProviderTest->testGetFriends()
-		$this->markTestIncomplete ( "getFriends test not implemented" );
-		
-		$this->VkontakteApiProvider->getFriends(/* parameters */);
-	
+	public function testGetFriends() {							
+		try 
+		{
+			$res = $this->VkontakteApiProvider->getFriends();
+			$this->assertEquals(count($res), 172);
+		} 
+		catch (APIException $apie) 
+		{
+			$this->assertTrue(false);
+		}
 	}
 	
 	/**
 	 * Tests VkontakteApiProvider->postStream()
+	 * @todo реализовать публикацию с тестовыми данными
 	 */
-	public function testPostStream() {
-		// TODO Auto-generated VkontakteApiProviderTest->testPostStream()
+	public function testPostStream() {		
 		$this->markTestIncomplete ( "postStream test not implemented" );
 		
 		$this->VkontakteApiProvider->publish(/* parameters */);
@@ -102,12 +106,17 @@ class VkontakteApiProviderTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Tests VkontakteApiProvider->getFriendsFeed()
 	 */
-	public function testGetFriendsFeed() {
-		// TODO Auto-generated VkontakteApiProviderTest->testGetFriendsFeed()
-		$this->markTestIncomplete ( "getFriendsFeed test not implemented" );
-		
-		$this->VkontakteApiProvider->getFriendsFeed(/* parameters */);
-	
+	public function testGetFriendsFeed() {						
+		try 
+		{
+			$res = $this->VkontakteApiProvider->getFriendsFeed();
+			$this->assertNotNull($res);
+			$this->assertTrue(is_array($res));
+		} 
+		catch (APIException $apie) 
+		{
+			$this->assertTrue(false);
+		}
 	}
 
 }

@@ -7,6 +7,7 @@ require_once 'tests/lib/APIExceptionTest.php';
 require_once 'tests/lib/APIHandlerTest.php';
 require_once 'tests/lib/APIProviderFactoryTest.php';
 require_once 'tests/providers/VkontakteApiProviderTest.php';
+require_once 'tests/providers/OdnoclassnikiApiProviderTest.php';
 
 /*
 require_once 'tests/providers/FacebookApiProviderTest.php';
@@ -14,8 +15,6 @@ require_once 'tests/providers/FacebookApiProviderTest.php';
 require_once 'tests/providers/LivejournalApiProviderTest.php';
 
 require_once 'tests/providers/MailRuApiProviderTest.php';
-
-require_once 'tests/providers/OdnoclassnikiApiProviderTest.php';
 
 require_once 'tests/providers/TwitterApiProviderTest.php';
 
@@ -37,6 +36,7 @@ class AllTests extends PHPUnit_Framework_TestSuite {
 		$this->addTestSuite ( 'APIHandlerTest' );		
 		$this->addTestSuite ( 'APIProviderFactoryTest' );
 		$this->addTestSuite ( 'VkontakteApiProviderTest' );
+		$this->addTestSuite ( 'OdnoclassnikiApiProviderTest' );
 		
 		/*
 		$this->addTestSuite ( 'FacebookApiProviderTest' );
@@ -45,7 +45,7 @@ class AllTests extends PHPUnit_Framework_TestSuite {
 		
 		$this->addTestSuite ( 'MailRuApiProviderTest' );
 		
-		$this->addTestSuite ( 'OdnoclassnikiApiProviderTest' );
+		
 		
 		$this->addTestSuite ( 'TwitterApiProviderTest' );				
 		*/

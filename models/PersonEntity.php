@@ -21,14 +21,14 @@ class PersonEntity extends BaseEntity
 	 *
 	 * @var string
 	 */
-	private $name = null;
+	private $firstName = null;
 	
 	/**
 	 * Фамилия персоны
 	 *
 	 * @var string
 	 */
-	private $surname = null;
+	private $lastName = null;
 	
 	/**
 	 * Дата рождения
@@ -46,12 +46,12 @@ class PersonEntity extends BaseEntity
 	 *
 	 * @return void  
 	 */
-	public function __construct($id, $name, $surname, $birthday)
+	public function __construct($id = null, $firstName = null, $lastName = null, $birthday = null)
 	{
 		parent::__construct($id);
 				
-		$this->name = $name;
-		$this->surname = $surname;
+		$this->firstName = $firstName;
+		$this->lastName = $lastName;
 		$this->birthday = $birthday;
 	}
 		
@@ -60,8 +60,8 @@ class PersonEntity extends BaseEntity
 	 *
 	 * @return string	   
 	 */
-	public function getName() {
-		return $this->name;
+	public function getFirstName() {
+		return $this->firstName;
 	}
 
 	/**
@@ -69,8 +69,8 @@ class PersonEntity extends BaseEntity
 	 * 
 	 * @return string
 	 */
-	public function getSurname() {
-		return $this->surname;
+	public function getLastName() {
+		return $this->lastName;
 	}
 
 	/**
@@ -89,8 +89,8 @@ class PersonEntity extends BaseEntity
 	 * 
 	 * @return void
 	 */
-	public function setName($name) {
-		$this->name = $name;
+	public function setFirstName($firstName) {
+		$this->firstName = $firstName;
 	}
 
 	/**
@@ -100,8 +100,8 @@ class PersonEntity extends BaseEntity
 	 * 
 	 * @return void
 	 */
-	public function setSurname($surname) {
-		$this->surname = $surname;
+	public function setLastName($lastName) {
+		$this->lastName = $lastName;
 	}
 
 	/**

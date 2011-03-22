@@ -1,4 +1,5 @@
 <?php
+require_once 'init.php';
 
 require_once 'providers/OdnoclassnikiApiProvider.php';
 
@@ -19,21 +20,21 @@ class OdnoclassnikiApiProviderTest extends PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 		parent::setUp ();
-		
-		// TODO Auto-generated OdnoclassnikiApiProviderTest::setUp()
-		
-
-		$this->OdnoclassnikiApiProvider = new OdnoclassnikiApiProvider(/* parameters */);
 	
+		$this->OdnoclassnikiApiProvider = new OdnoclassnikiApiProvider(
+			37632,
+			"http://api-sandbox.odnoklassniki.ru:8088/api/fb.do",
+			"CBAEJBABABABABABA",
+			"SampleAppSecret",
+			"eugene.kurbatov", 
+			"eugene.kurbatov_pwd"
+		);
 	}
 	
 	/**
 	 * Cleans up the environment after running a test.
 	 */
-	protected function tearDown() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest::tearDown()
-		
-
+	protected function tearDown() {		
 		$this->OdnoclassnikiApiProvider = null;
 		
 		parent::tearDown ();
@@ -42,62 +43,59 @@ class OdnoclassnikiApiProviderTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Constructs the test case.
 	 */
-	public function __construct() {
-		// TODO Auto-generated constructor
-	}
-	
-	/**
-	 * Tests OdnoclassnikiApiProvider->__construct()
-	 */
-	public function test__construct() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest->test__construct()
-		$this->markTestIncomplete ( "__construct test not implemented" );
-		
-		$this->OdnoclassnikiApiProvider->__construct(/* parameters */);
-	
-	}
+	public function __construct() {		
+	}		
 	
 	/**
 	 * Tests OdnoclassnikiApiProvider->getFriends()
 	 */
 	public function testGetFriends() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest->testGetFriends()
-		$this->markTestIncomplete ( "getFriends test not implemented" );
-		
-		$this->OdnoclassnikiApiProvider->getFriends(/* parameters */);
-	
+
+		try 
+		{
+			$res = $this->OdnoclassnikiApiProvider->getFriends();
+			$this->assertEquals(count($res), 19);
+		} 
+		catch (APIException $apie) 
+		{
+			$this->assertTrue(false);
+		}		
 	}
 	
 	/**
 	 * Tests OdnoclassnikiApiProvider->getFriendsFeed()
 	 */
 	public function testGetFriendsFeed() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest->testGetFriendsFeed()
-		$this->markTestIncomplete ( "getFriendsFeed test not implemented" );
-		
-		$this->OdnoclassnikiApiProvider->getFriendsFeed(/* parameters */);
-	
+		$this->markTestIncomplete ("getFriendsFeed test not implemented");	
 	}
 	
 	/**
 	 * Tests OdnoclassnikiApiProvider->getOnlineFriends()
 	 */
 	public function testGetOnlineFriends() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest->testGetOnlineFriends()
-		$this->markTestIncomplete ( "getOnlineFriends test not implemented" );
-		
-		$this->OdnoclassnikiApiProvider->getOnlineFriends(/* parameters */);
-	
+		try 
+		{
+			$res = $this->OdnoclassnikiApiProvider->getOnlineFriends();
+			$this->assertNotNull($res);
+			$this->assertTrue(is_array($res));
+		} 
+		catch (APIException $apie) 
+		{
+			$this->assertTrue(false);
+		}	
 	}
 	
 	/**
 	 * Tests OdnoclassnikiApiProvider->auth()
 	 */
 	public function testAuth() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest->testAuth()
-		$this->markTestIncomplete ( "auth test not implemented" );
+		$sessionData = $this->OdnoclassnikiApiProvider->auth('eugene.kurbatov', 'eugene.kurbatov_pwd');	
 		
-		$this->OdnoclassnikiApiProvider->auth(/* parameters */);
+		print_r($sessionData);
+		
+		$this->assertTrue(isset($sessionData['session_key']));
+		$this->assertTrue(isset($sessionData['session_secret_key']));
+		$this->assertEquals(98900, $sessionData['uid']);
 	
 	}
 	
@@ -105,10 +103,10 @@ class OdnoclassnikiApiProviderTest extends PHPUnit_Framework_TestCase {
 	 * Tests OdnoclassnikiApiProvider->postStream()
 	 */
 	public function testPostStream() {
-		// TODO Auto-generated OdnoclassnikiApiProviderTest->testPostStream()
-		$this->markTestIncomplete ( "postStream test not implemented" );
 		
-		$this->OdnoclassnikiApiProvider->publish(/* parameters */);
+		$activity = $this->OdnoclassnikiApiProvider->publish('This is a test message!');
+		$this->assertNotNull($activity->getId());
+		$this->assertEquals('This is a test message!', $activity->getText());
 	
 	}
 

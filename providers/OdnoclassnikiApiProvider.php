@@ -28,28 +28,62 @@ class OdnoclassnikiApiProvider extends BaseApiProvider
 		$this->provideSessionData($login, $pass);
 	}
 	
+	/**
+	 * @todo friends.get возвращает максимум для 100 друзей
+	 */
 	public function getFriends()
 	{
+		$friends = array();
+		
 		$userIds = implode(',', $this->callApi('friends.get', 
 			array('session_key' => $this->sessionData['session_key'])));
 		
-		//max 100 ids - to fix		
-		return $this->callApi('users.getInfo', 
-			array('uids' => $userIds, 
+		$results = $this->callApi('users.getInfo', array('uids' => $userIds, 
 				'fields' => 'uid,first_name,last_name,name,gender,birthday,age,location,current_location,pic_1', 
-				'session_key' => $this->sessionData['session_key'])
+				'session_key' => $this->sessionData['session_key'])					
 		);			
+		
+		foreach ($results as $result)
+		{	
+			$friend = new PersonEntity();
+			$friend->setId($result['uid']);
+			$friend->setFirstName($result['first_name']);
+			$friend->setLastName($result['last_name']);
+			$friend->setBirthday($result['birthday']);	
+			$friends[] = $friend;			 
+		}
+		
+		return $friends;
 	}
 	
 	public function getFriendsFeed()
 	{
-		throw new APIException(0, 'This method will be implemented after half a year');		
+		throw new APIException(0, 'This method will be implemented after a half a year');		
 	}
 	
 	public function getOnlineFriends()
-	{
-		return $this->callApi('friends.getOnline', 
-			array('session_key' => $this->sessionData['session_key']));
+	{	
+		$friends = array();
+		
+		$userIds = implode(',', $this->callApi('friends.getOnline', 
+			array('session_key' => $this->sessionData['session_key'])));
+		
+		$results = $this->callApi('users.getInfo', array('uids' => $userIds, 
+			'fields' => 'uid,first_name,last_name,birthday', 
+			'session_key' => $this->sessionData['session_key'])					
+		);			
+		
+		foreach ($results as $result)
+		{	
+			$friend = new PersonEntity();
+			$friend->setId($result['uid']);
+			$friend->setFirstName($result['first_name']);
+			$friend->setLastName($result['last_name']);
+			$friend->setBirthday($result['birthday']);	
+			$friends[] = $friend;			 
+		}
+		
+		return $friends;
 	}
 	
 	public function auth($login, $pass)
@@ -58,10 +92,16 @@ class OdnoclassnikiApiProvider extends BaseApiProvider
 			array('user_name' => $login, 'password' => $pass, 'gen_token' => true));		 		
 	}
 	
-	public function publish($message) 
+	public function publish($messageText) 
 	{
-		return $this->callApi('stream.publish', 
-			array('message' => $message, 'session_key' => $this->sessionData['session_key']));
+		$activity = new ActivityEntity(ActivityEntity::POST, null, $messageText, null, null);
+		
+		$result = $this->callApi('stream.publish', 
+			array('message' => $messageText, 'session_key' => $this->sessionData['session_key']));
+			
+		$activity->setId($result);
+		
+		return $activity;
 	}
 	
 	private function callApi($method, $params = false)
@@ -90,6 +130,13 @@ class OdnoclassnikiApiProvider extends BaseApiProvider
 		$this->requester->setUrl($this->apiUrl.'?'.http_build_query($params));
 		$this->requester->setMethod(HTTP_Request2::METHOD_GET);
 		$response = $this->requester->send();
-		return json_decode($response->getBody(), true);
+		
+		$res = json_decode($response->getBody(), true);
+						
+		//Произошла внешняя ошибка, выбрасываем исключение
+		if (is_array($res) && isset($res['error_code'])) 
+			throw new APIException(0, $res);
+		
+		return $res;
 	}
 }

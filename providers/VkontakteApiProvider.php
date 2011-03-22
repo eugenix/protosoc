@@ -112,6 +112,9 @@ class VkontakteApiProvider extends BaseApiProvider
 		return $activity;
 	}
 	
+	/**
+	 * @todo передавать в параметрах с какого времени по какое брать новости
+	 */
 	public function getFriendsFeed()
 	{
 		$activities = array();
@@ -163,6 +166,13 @@ class VkontakteApiProvider extends BaseApiProvider
 		$this->requester->setUrl($this->apiUrl.'?'.http_build_query($params));
 		$this->requester->setMethod(HTTP_Request2::METHOD_GET);
 		$response = $this->requester->send();
-		return json_decode($response->getBody(), true);
+		
+		$res = json_decode($response->getBody(), true);
+		
+		//Произошла внешняя ошибка, выбрасываем исключение
+		if (isset($res['error'])) 
+			throw new APIException(0, $res['error']);
+		
+		return $res;
 	}
 }
