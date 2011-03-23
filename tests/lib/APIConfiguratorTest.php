@@ -1,8 +1,4 @@
 <?php
-require_once 'Config/Lite.php';
-require_once 'lib/APIConfigurator.php';
-require_once 'PHPUnit/Framework/TestCase.php';
-
 /**
  * APIConfigurator test case.
  */

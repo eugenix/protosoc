@@ -1,6 +1,4 @@
 <?php
-require_once 'providers/IAPIProvider.php';
-require_once 'providers/BaseApiProvider.php';
 
 class TestApiProvider extends BaseApiProvider
 {

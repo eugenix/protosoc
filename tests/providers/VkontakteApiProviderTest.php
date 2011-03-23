@@ -115,7 +115,7 @@ class VkontakteApiProviderTest extends PHPUnit_Framework_TestCase {
 		} 
 		catch (APIException $apie) 
 		{
-			$this->assertTrue(false);
+			$this->fail('Операция не должна завершаться эксепшеном');
 		}
 	}
 

@@ -12,8 +12,6 @@
  * @link     nolink
  */
  
-require_once 'models/BaseEntity.php';
-
 class ActivityEntity extends BaseEntity 
 {
 	const POST = 'POST';

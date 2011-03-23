@@ -12,7 +12,6 @@
  * @link     nolink
  */ 
 
-require_once 'models/BaseEntity.php';
 
 class StatusEntity extends BaseEntity 
 {

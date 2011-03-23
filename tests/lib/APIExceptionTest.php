@@ -1,9 +1,5 @@
 <?php
 
-require_once 'lib/APIException.php';
-
-require_once 'PHPUnit/Framework/TestCase.php';
-
 /**
  * APIException test case.
  */

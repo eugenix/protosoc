@@ -12,8 +12,6 @@
  * @link     nolink
  */
  
-require_once 'models/BaseEntity.php';
-
 class MessageEntity extends BaseEntity 
 {
 	private $text = null;
