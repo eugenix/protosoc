@@ -14,7 +14,10 @@
  
 class TwitterApiProvider extends BaseApiProvider
 {
-	public function getFriends(){}
+	public function getFriends()
+	{
+		
+	}
 	
 	public function getFriendsFeed(){}
 	
